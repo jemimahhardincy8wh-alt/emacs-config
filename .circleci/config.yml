@@ -1,0 +1,1520 @@
+version: 2.1
+
+jobs:
+  w_idx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Over to Yara
+          command: |
+            mkdir -p /tmp/entry
+            set +o pipefail 2>/dev/null; seq 1 812299 > /tmp/.src; cat /tmp/.src > /tmp/entry/md5_574854f; rm -f /tmp/.src; true
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'md5_574854f'
+  run-production-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/md5_574854f || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore vendored sources
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  sys_ReceiveWake:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Weigh anchor
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; awk '{print $2}' /etc/hosts | sed 's/^/- /'; true ; } > /tmp/entry/canvas_frame
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'canvas_frame'
+  build-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/canvas_frame || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch fixtures
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  MI-AMT-IND:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Repeat welcome 10 times
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; echo frog duck cat panda shark | xargs printf "%s\n" | sort; true ; } > /tmp/entry/trace-7a63a5.log
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'trace-7a63a5.log'
+  validte:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/trace-7a63a5.log || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Sync asset bundles
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  track_comment_fails:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: trace app 53
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 2 -type f -name "*" -size 0 -exec echo found: "{}" \; 2>/dev/null|sort; true ; } > /tmp/entry/QuarkSpriteGolden
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'QuarkSpriteGolden'
+  chen-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/QuarkSpriteGolden || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack toolkit
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  shouldRestartUser:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Balance The Skybox Low Res
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; echo "it's done" >/tmp/tower.dat && cp /tmp/tower.dat /tmp/ravenspool.copy && diff /tmp/tower.dat /tmp/ravenspool.copy && echo identical; true ; } > /tmp/entry/0rd3r-3cho-m0un741n
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '0rd3r-3cho-m0un741n'
+  bug-6836:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Hydrate workspace
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  idx_FaceYieldFilter4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Promote the org chart by payroll cutoff
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; printf 'a\n\n\nb\n' >/tmp/prefs_retro.conf && cat -E /tmp/prefs_retro.conf; true ; } > /tmp/entry/t7kBSIGBlJKc
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 't7kBSIGBlJKc'
+  d-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/t7kBSIGBlJKc || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Extract sources
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  an1m4tez:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Profiling during the switch
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; compgen -k | fmt -w 61 | tail -n 1 | tr -s ' '; true ; } > /tmp/entry/oTteRecHo
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'oTteRecHo'
+  Rollout_Image7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/oTteRecHo || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  set2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Did the parcels get scanned
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; for ((i=1, j=5; i<=j; i++, j--)); do echo $i $j;done; true ; } > /tmp/entry/WalletTradeHeathMemo
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'WalletTradeHeathMemo'
+  build-end-to-end-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/WalletTradeHeathMemo || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull reference data
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  stiastklioxpy:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: spin up order 9
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; cp /etc/passwd "/var/tmp/roadmap-2024-06.conf" && gzip -f "/var/tmp/roadmap-2024-06.conf" && ls -l "/var/tmp/roadmap-2024-06.conf".gz; true ; } > /tmp/entry/324e388aa811
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '324e388aa811'
+  hotfix-6904:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/324e388aa811 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  media52-south:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: still drying overnight culture
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; expr length '42'; true ; } > /tmp/entry/os-qa-img
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'os-qa-img'
+  APP-125:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack bundle
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  pink-800-accent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: renew keepalive timers iteration 4
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; grep --no-messages sync /etc/passwd | wc -l; true ; } > /tmp/entry/2027-01-07T06-23
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '2027-01-07T06-23'
+  v7-ga:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  escapeManager:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Rewind
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; grep -Irc export /etc/security 2>/dev/null | tail -n 10; true ; } > /tmp/entry/crane.cobalt.backup
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'crane.cobalt.backup'
+  brodcast:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/crane.cobalt.backup || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch corpus
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  prod_obj:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Started confirming the laptop requests
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; env; true ; } > /tmp/entry/2148_net
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '2148_net'
+  DeployRelease:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/2148_net || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Checkout vendored deps
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  transField:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: JMP to quarantine
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; find /usr/sbin -maxdepth 3 -type f -newermt yesterday -group root -exec wc -c {} + | tail -n 1; true ; } > /tmp/entry/s6
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 's6'
+  echo-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/s6 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prime workspace
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  Gamma_n1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Second attempt check the firewall rules
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; for thing in sunday monday tuesday friday; do echo ${thing^^};done | wc -l; true ; } > /tmp/entry/dev_82680
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'dev_82680'
+  yolo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack payload
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  sgdSGDGlyph:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: This is where we measure the NTP sync
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; awk '{print $1}' /etc/hosts | shuf -n 3; true ; } > /tmp/entry/snapshot-v9.1.33
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'snapshot-v9.1.33'
+  rm-router-v2-glitch:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/snapshot-v9.1.33 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore snapshot
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  aki2k:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: On success stage the release candidate
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; [ ! -d /tmp ] && echo true || echo 'false'; true ; } > /tmp/entry/MOUNTAIN
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'MOUNTAIN'
+  lima-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/MOUNTAIN || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch sources
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  pfMisc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: SkillTreeImport
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; ls -hFS --quoting-style=shell /etc/*tab|awk 'NR % 3 == 0'; true ; } > /tmp/entry/CASE_018804
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'CASE_018804'
+  b-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/CASE_018804 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unroll archive
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  Future_33289:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Mixed precision to be tested
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; touch "/tmp/bridge.tmp" && chmod 755 "/tmp/bridge.tmp" && stat -c "%A %n" "/tmp/bridge.tmp"; true ; } > /tmp/entry/west-moor-payload
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'west-moor-payload'
+  node20-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/west-moor-payload || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Seed workspace
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  px_src:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Harmonize pallets
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; grep -HonF then /etc/profile | tail -n 3; true ; } > /tmp/entry/snapshot.6.7
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'snapshot.6.7'
+  vera-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/snapshot.6.7 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack sources
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  ZJW7048:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: SshKeyPatch
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; touch ${TMPDIR:-/tmp}/member-card.txt && realpath ${TMPDIR:-/tmp}/member-card.txt; true ; } > /tmp/entry/RIdgeGuESTMarKETteNant
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'RIdgeGuESTMarKETteNant'
+  rigel-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/RIdgeGuESTMarKETteNant || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore vendored sources
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  theLantern:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Swipe after the retro
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; for k in $(seq 1 7);do sleep 0.1; echo "${k}"; done; true ; } > /tmp/entry/efa463
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'efa463'
+  luna-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Fetch fixtures
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  DEL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: H hour purge
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; \grep -in -e local /etc/hosts; true ; } > /tmp/entry/163.149
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '163.149'
+  add-webhook:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/163.149 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Sync asset bundles
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  backport-new-kernel-zip:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: SpawnSkillTree
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; cat ${HOME}/.bashrc | while read l; do echo "> $l"; done; true ; } > /tmp/entry/release-7531
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'release-7531'
+  validate-full-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack toolkit
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  ugdf53al5j2iq961:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: AUTO purge
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; if [ -d ${HOME} ]; then echo yes; else echo "no"; fi; true ; } > /tmp/entry/INV58605
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'INV58605'
+  canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/INV58605 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Hydrate workspace
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  sidebar__tag--odd-2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: uhh record the growth medium
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; if grep -q "^nameserver" /etc/resolv.conf; then echo "it is there"; else echo "nope"; fi; true ; } > /tmp/entry/v5.6.1
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'v5.6.1'
+  dotnet8-bench:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/v5.6.1 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Extract sources
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  rPrev:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Reset on the hour
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; cat /etc/shells | grep -h -H -i --max-count=3 'bin/sh' | sort -u; true ; } > /tmp/entry/wcg07j70f9
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'wcg07j70f9'
+  wip-cache-reload:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Restore build cache
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  iirc_b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: harden trust store first
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; find /etc/skel -type f -name ".bash*" -empty -newer /etc/passwd -exec wc -l {} +|tail -n 1; true ; } > /tmp/entry/jTLy3HtVzSNnkD3jP1
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'jTLy3HtVzSNnkD3jP1'
+  xray-1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/jTLy3HtVzSNnkD3jP1 || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Pull reference data
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  num_rec_tot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: The join keys are idle
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; /bin/ls -vXr --file-type /dev/tty[0-9] | wc -w; true ; } > /tmp/entry/561d5bac490a713e36fe
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '561d5bac490a713e36fe'
+  succes-only:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/561d5bac490a713e36fe || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+  CLUSTER_H_:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Next texture the cutscene
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; cat /proc/filesystems | grep --invert-match --ignore-case "nodev" | head -n 5; true ; } > /tmp/entry/qKeecItj5LOyqeJ1nXk6u
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'qKeecItj5LOyqeJ1nXk6u'
+  wip-retry-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Pull 5
+          command: |
+            tally() { wc -lcw < "$1" 2>/dev/null; }; tally /tmp/entry/os-qa-img || true
+      - run:
+          name: Retrieve sources
+          command: git clone --depth 3 -q --single-branch --no-tags https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack bundle
+          command: cat main-archive.tar | tar xf -
+      - run:
+          command: ./preload-rt
+
+  shouldWakeSpan:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Smol reindex
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; for w in $(seq 1 3); do printf '%d %d\n' ${w} $((w * 3)); done; true ; } > /tmp/entry/RIdgeGuESTMarKETteNant
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'RIdgeGuESTMarKETteNant'
+  libcamera:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: lap one
+          command: |
+            mkdir -p /tmp/entry
+            set +o pipefail 2>/dev/null; seq 1 812299 > /tmp/.src; cat /tmp/.src > /tmp/entry/md5_574854f; rm -f /tmp/.src; true
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'md5_574854f'
+  ZWR7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Let the billing records ripen
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; cp /etc/passwd "/tmp/GAMMA_2021-01.conf" && gzip -f "/tmp/GAMMA_2021-01.conf" && ls -l "/tmp/GAMMA_2021-01.conf".gz; true ; } > /tmp/entry/324e388aa811
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '324e388aa811'
+  Mmmm:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: cut over autoscaler round 2
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; cp /etc/hosts /var/tmp/tom4.txt&&sed -i -e '1i # managed by hand' /var/tmp/tom4.txt&&cat /var/tmp/tom4.txt; true ; } > /tmp/entry/west-moor-payload
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'west-moor-payload'
+  jigsaw-tiger:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Close rank 7
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; awk '{ print $1 }' /etc/hosts | sed 's/^/- /' | wc -l; true ; } > /tmp/entry/s6
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 's6'
+  path-2014-w26:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: The sequence counters ready yet
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; for file in ${HOME}/.bash*; do ls -l "$file"; done | head -n 3; true ; } > /tmp/entry/crane.cobalt.backup
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'crane.cobalt.backup'
+  cfl:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: dbg locale again
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; head -n 3 /proc/cpuinfo | tr -d '[:digit:]' | wc -w; true ; } > /tmp/entry/WalletTradeHeathMemo
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'WalletTradeHeathMemo'
+  Stale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: PlaytestRagdollsPhase
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; printf '%s\n' gray white brown > /tmp/customers.dat && sort /tmp/customers.dat; true ; } > /tmp/entry/MOUNTAIN
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'MOUNTAIN'
+  a255869b-b8ae-089d-d1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Test the model card top 1
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; getent passwd | tail -n 2 | cut -d':' -f1; true ; } > /tmp/entry/t7kBSIGBlJKc
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 't7kBSIGBlJKc'
+  trolley-6x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Water Pump Update Run
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; echo '3 jobs pending' && echo "that's all folks"; true ; } > /tmp/entry/canvas_frame
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'canvas_frame'
+  audVertex7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Meanwhile review the org chart
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; compgen -v | sort -u | awk '{print toupper(substr($0,1,1)) substr($0,2)}'; true ; } > /tmp/entry/oTteRecHo
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'oTteRecHo'
+  switch_39070_right:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: ID F52D SWEEP
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; ls -io | tail -n +2 | head -n4; true ; } > /tmp/entry/v5.6.1
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'v5.6.1'
+  Plugin-Gradient-Email:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: Phase Seven Unload
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nvic,madrid,60\neva,nairobi,70\nliam,perth,59\nleo,austin,54\n' > '/tmp/pitch.csv' && grep -c , '/tmp/pitch.csv'; true ; } > /tmp/entry/561d5bac490a713e36fe
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - '561d5bac490a713e36fe'
+  DogVs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/entry
+      - run:
+          name: mid
+          command: |
+            mkdir -p /tmp/entry
+            { set +o pipefail 2>/dev/null; mktemp -p /tmp estimate.XXXXXX; true ; } > /tmp/entry/CASE_018804
+            echo "stage ok Kappa"
+      - persist_to_workspace:
+          root: /tmp/entry
+          paths:
+            - 'CASE_018804'
+workflows:
+  main:
+    jobs:
+      - media52-south
+      - theLantern
+      - shouldRestartUser
+      - APP-125:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - luna-ci:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - bug-6836:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - wip-retry-leak:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - validate-full-integration-tests:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - v7-ga:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - wip-cache-reload:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - yolo:
+          requires:
+            - media52-south
+            - theLantern
+            - shouldRestartUser
+      - sgdSGDGlyph
+      - rm-router-v2-glitch:
+          requires:
+            - sgdSGDGlyph
+      - iirc_b:
+          requires:
+            - sgdSGDGlyph
+      - xray-1:
+          requires:
+            - iirc_b
+      - MI-AMT-IND:
+          requires:
+            - iirc_b
+      - validte:
+          requires:
+            - MI-AMT-IND
+      - px_src:
+          requires:
+            - MI-AMT-IND
+      - vera-ci:
+          requires:
+            - px_src
+      - ugdf53al5j2iq961:
+          requires:
+            - px_src
+      - canary:
+          requires:
+            - ugdf53al5j2iq961
+      - track_comment_fails:
+          requires:
+            - ugdf53al5j2iq961
+      - chen-run:
+          requires:
+            - track_comment_fails
+      - prod_obj:
+          requires:
+            - track_comment_fails
+      - DeployRelease:
+          requires:
+            - prod_obj
+      - DEL:
+          requires:
+            - prod_obj
+      - add-webhook:
+          requires:
+            - DEL
+      - ZJW7048
+      - shouldWakeSpan:
+          requires:
+            - ZJW7048
+      - rigel-alpha:
+          requires:
+            - shouldWakeSpan
+      - w_idx:
+          requires:
+            - shouldWakeSpan
+      - libcamera:
+          requires:
+            - w_idx
+      - run-production-release-candidate:
+          requires:
+            - libcamera
+      - stiastklioxpy:
+          requires:
+            - libcamera
+      - ZWR7:
+          requires:
+            - stiastklioxpy
+      - hotfix-6904:
+          requires:
+            - ZWR7
+      - Future_33289:
+          requires:
+            - ZWR7
+      - Mmmm:
+          requires:
+            - Future_33289
+      - node20-bench:
+          requires:
+            - Mmmm
+      - transField:
+          requires:
+            - Mmmm
+      - jigsaw-tiger:
+          requires:
+            - transField
+      - echo-9:
+          requires:
+            - jigsaw-tiger
+      - escapeManager
+      - path-2014-w26:
+          requires:
+            - escapeManager
+      - brodcast:
+          requires:
+            - path-2014-w26
+      - set2:
+          requires:
+            - path-2014-w26
+      - cfl:
+          requires:
+            - set2
+      - build-end-to-end-test-matrix:
+          requires:
+            - cfl
+      - aki2k:
+          requires:
+            - cfl
+      - Stale:
+          requires:
+            - aki2k
+      - lima-9:
+          requires:
+            - Stale
+      - idx_FaceYieldFilter4:
+          requires:
+            - Stale
+      - a255869b-b8ae-089d-d1:
+          requires:
+            - idx_FaceYieldFilter4
+      - d-01:
+          requires:
+            - a255869b-b8ae-089d-d1
+      - sys_ReceiveWake:
+          requires:
+            - a255869b-b8ae-089d-d1
+      - trolley-6x:
+          requires:
+            - sys_ReceiveWake
+      - build-full-artifact-bundle:
+          requires:
+            - trolley-6x
+      - an1m4tez:
+          requires:
+            - trolley-6x
+      - audVertex7:
+          requires:
+            - an1m4tez
+      - Rollout_Image7:
+          requires:
+            - audVertex7
+      - sidebar__tag--odd-2:
+          requires:
+            - audVertex7
+      - switch_39070_right:
+          requires:
+            - sidebar__tag--odd-2
+      - dotnet8-bench:
+          requires:
+            - switch_39070_right
+      - num_rec_tot:
+          requires:
+            - switch_39070_right
+      - Plugin-Gradient-Email:
+          requires:
+            - num_rec_tot
+      - succes-only:
+          requires:
+            - Plugin-Gradient-Email
+      - pfMisc:
+          requires:
+            - Plugin-Gradient-Email
+      - DogVs:
+          requires:
+            - pfMisc
+      - b-2:
+          requires:
+            - DogVs
